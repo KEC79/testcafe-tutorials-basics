@@ -4,13 +4,13 @@
   "description": "Automated testing using testcafe",
   "main": "index.js",
   "scripts": {
-    "test:chrome": " testcafe chrome ./tests -s takeOnFails=true",
-    "test:chrome:headless": "testcafe chrome:headless ./tests -s takeOnFails=true",
-    "test:chrome:mobile": "testcafe chrome:emulation:device=iphone X ./tests -s takeOnFails=true",
-    "test:chrome:noPageCache": "testcafe chrome ./tests -s takeOnFails=true --disable-page-caching",
-    "test:firefox": " testcafe firefox ./tests -s takeOnFails=true",
-    "test:ie": " testcafe ie ./tests -s takeOnFails=true",
-    "test:edge": " testcafe edge ./tests -s takeOnFails=true"
+    "test:chrome": " testcafe chrome -s takeOnFails=true",
+    "test:chrome:headless": "testcafe chrome:headless -s takeOnFails=true",
+    "test:chrome:mobile": "testcafe chrome:emulation:device=iphone X -s takeOnFails=true",
+    "test:chrome:noPageCache": "testcafe chrome -s takeOnFails=true --disable-page-caching",
+    "test:firefox": " testcafe firefox -s takeOnFails=true",
+    "test:ie": " testcafe ie -s takeOnFails=true",
+    "test:edge": " testcafe edge -s takeOnFails=true"
   },
   "author": "",
   "license": "ISC",
