@@ -12,7 +12,6 @@
     "test:ie": " testcafe ie ./tests -s takeOnFails=true",
     "test:edge": " testcafe edge ./tests -s takeOnFails=true"
   },
-  
   "author": "",
   "license": "ISC",
   "dependencies": {
