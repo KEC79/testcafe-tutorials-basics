@@ -28,7 +28,7 @@ fixture `Getting started with Testcafe`
     // Runs after each test
 })
 
-test.only("My first testcafe test", async testController => {
+test.skip("My first testcafe test", async testController => {
     const developer_name_input = Selector("#developer-name")
     const submit_button = Selector("#submit-button")
     const article_text = Selector("#article-header")
@@ -54,7 +54,7 @@ test.skip("My second testcafe test", async testController => {
     await testController.expect(Selector(article_text).innerText).contains("Kim")
 })
 
-test("API Actions", async t => {
+test.skip("API Actions", async t => {
     const developer_name_input = Selector("#developer-name")
     const submit_button = Selector("#submit-button")
     const article_text = Selector("#article-header")
@@ -89,7 +89,7 @@ test("API Actions", async t => {
     // 
 })
 
-test("API Assertions", async t => {
+test.skip("API Assertions", async t => {
     // Deep equal
     await t.expect("foo").eql("foo", "message", { options })
     // Not deep equal

@@ -5,12 +5,12 @@ fixture `Login Test`
 
     .beforeEach(async testController => {
         // Runs before each test
-        await testController.setTestSpeed(0.1)
+        await testController.setTestSpeed(1)
         await testController.setPageLoadTimeout(0)
     })
     
 
-test.skip("User cannot login with invalid credentials", async t => {
+test("User cannot login with invalid credentials", async t => {
     const signInButton = Selector("#signin_button")
     const loginForm = Selector("#login_form")
     const usernameInput = Selector("#user_login")
