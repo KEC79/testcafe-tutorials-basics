@@ -1,5 +1,5 @@
 import { Selector } from "testcafe"
-import { login } from "../helper"
+import { login } from "../helpers/helper"
 
 fixture `New payee test`
 .page `http://zero.webappsecurity.com/index.html`

@@ -1,4 +1,7 @@
 import { Selector } from "testcafe"
+import Navbar from "../page-objects/components/Navbar"
+
+const navbar = new Navbar()
 
 fixture `Login Test`
     .page `http://zero.webappsecurity.com/index.html`
@@ -11,14 +14,13 @@ fixture `Login Test`
     
 
 test("User cannot login with invalid credentials", async t => {
-    const signInButton = Selector("#signin_button")
     const loginForm = Selector("#login_form")
     const usernameInput = Selector("#user_login")
     const passwordInput = Selector("#user_password")
     const submitButton = Selector(".btn-primary")
     const errorMessage = Selector(".alert-error").innerText
 
-    await t.click(signInButton)
+    await t.click(navbar.signInButton)
     await t.expect(loginForm.exists).ok()
     await t.typeText(usernameInput, "invalid username", { paste:true })
     await t.typeText(passwordInput, "invalid Password", { paste:true })
@@ -28,7 +30,6 @@ test("User cannot login with invalid credentials", async t => {
 }),
 
 test("User can login into application", async t => {
-    const signInButton = Selector("#signin_button")
     const loginForm = Selector("#login_form")
     const usernameInput = Selector("#user_login")
     const passwordInput = Selector("#user_password")
@@ -37,7 +38,7 @@ test("User can login into application", async t => {
     const userIcon = Selector(".icon-user")
     const logoutButton = Selector("#logout_link")
 
-    await t.click(signInButton)
+    await t.click(navbar.signInButton)
     await t.expect(loginForm.exists).ok()
     await t.typeText(usernameInput, "username", { paste:true })
     await t.typeText(passwordInput, "password", { paste:true })
@@ -47,5 +48,5 @@ test("User can login into application", async t => {
     await t.click(userIcon)
     await t.expect(logoutButton.exists).ok()
     await t.click(logoutButton)
-    await t.expect(signInButton.exists).ok()
+    await t.expect(navbar.signInButton.exists).ok()
 })
