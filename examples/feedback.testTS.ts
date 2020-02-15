@@ -1,5 +1,5 @@
-import FeedbackPage from "../page-objects/pages/FeedbackPageTS"
-import HomePage from "../page-objects/pages/HomePageTS"
+import FeedbackPage from "../examples/FeedbackPageTS"
+import HomePage from "../examples/HomePageTS"
 
 const feedbackPage = new FeedbackPage()
 const homePage = new HomePage()
