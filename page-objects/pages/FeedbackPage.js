@@ -1,7 +1,9 @@
 import { Selector, t } from "testcafe"
+import BasePage from "./BasePage"
 
-class FeedbackPage {
+class FeedbackPage extends BasePage {
     constructor() {
+        super()
         this.feedbackPageTitle = Selector("#feedback-title")
         this.nameInput = Selector("#name")
         this.emailInput = Selector("#email")
