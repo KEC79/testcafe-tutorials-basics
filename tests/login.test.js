@@ -1,52 +1,41 @@
-import { Selector } from "testcafe"
 import Navbar from "../page-objects/components/Navbar"
+import LoginPage from "../page-objects/pages/LoginPage"
+import AccountSummaryPage from "../page-objects/pages/accountSummaryPage"
 
 const navbar = new Navbar()
+const loginPage = new LoginPage()
+const accountSummaryPage = new AccountSummaryPage()
 
 fixture `Login Test`
     .page `http://zero.webappsecurity.com/index.html`
 
-    .beforeEach(async testController => {
-        // Runs before each test
-        await testController.setTestSpeed(1)
-        await testController.setPageLoadTimeout(0)
+    .beforeEach(async t => {
+        await t.setTestSpeed(1)
+        await t.setPageLoadTimeout(0)
     })
     
 
 test("User cannot login with invalid credentials", async t => {
-    const loginForm = Selector("#login_form")
-    const usernameInput = Selector("#user_login")
-    const passwordInput = Selector("#user_password")
-    const submitButton = Selector(".btn-primary")
-    const errorMessage = Selector(".alert-error").innerText
-
-    await t.click(navbar.signInButton)
-    await t.expect(loginForm.exists).ok()
-    await t.typeText(usernameInput, "invalid username", { paste:true })
-    await t.typeText(passwordInput, "invalid Password", { paste:true })
-    await t.click(submitButton)
-    await t.expect(errorMessage).contains("Login and/or password are wrong.")
-
+    await t
+        .click(navbar.signInButton)
+    loginPage
+        .loginToApp("invalid username", "invalid Password")
+    await t
+        .expect(loginPage.errorMessage.innerText)
+        .contains("Login and/or password are wrong.")
 }),
 
 test("User can login into application", async t => {
-    const loginForm = Selector("#login_form")
-    const usernameInput = Selector("#user_login")
-    const passwordInput = Selector("#user_password")
-    const submitButton = Selector(".btn-primary")
-    const accountSummaryTab = Selector("#account_summary_tab")
-    const userIcon = Selector(".icon-user")
-    const logoutButton = Selector("#logout_link")
-
-    await t.click(navbar.signInButton)
-    await t.expect(loginForm.exists).ok()
-    await t.typeText(usernameInput, "username", { paste:true })
-    await t.typeText(passwordInput, "password", { paste:true })
-    await t.click(submitButton)
-    await t.expect(accountSummaryTab.exists).ok()
-    await t.expect(loginForm.exists).notOk()
-    await t.click(userIcon)
-    await t.expect(logoutButton.exists).ok()
-    await t.click(logoutButton)
-    await t.expect(navbar.signInButton.exists).ok()
+    await t
+        .click(navbar.signInButton)
+        .expect(loginPage.loginForm.exists).ok()
+    loginPage
+        .loginToApp("username", "password")
+    await t    
+        .expect(accountSummaryPage.accountSummaryTab.exists).ok()
+        .expect(loginPage.loginForm.exists).notOk()
+        .click(navbar.userIcon)
+        .expect(navbar.logoutButton.exists).ok()
+        .click(navbar.logoutButton)
+        .expect(navbar.signInButton.exists).ok()
 })

@@ -5,6 +5,8 @@ class Navbar {
         // Selectors
         this.searchBar = Selector("#searchTerm")
         this.signInButton = Selector("#signin_button")
+        this.userIcon = Selector(".icon-user") 
+        this.logoutButton = Selector("#logout_link")
     }
 
     async search(text) {
