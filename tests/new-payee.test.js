@@ -1,33 +1,30 @@
-import { Selector } from "testcafe"
-import { login } from "../helpers/helper"
+import Navbar from "../page-objects/components/Navbar"
+import LoginPage from "../page-objects/pages/LoginPage"
+import PayBillsPage from "../page-objects/pages/PayBillsPage"
 
 fixture `New payee test`
 .page `http://zero.webappsecurity.com/index.html`
 
+const loginPage = new LoginPage()
+const navbar = new Navbar()
+const payBillsPage = new PayBillsPage()
+
 test.before(async t => {
-   await login("username", "password")
+    await t.click(navbar.signInButton)
+    await loginPage.loginToApp("username", "password")
 })
 
 ("User can add a new payee to the list", async t => {
-    // Selectors
-    const payBillsTab = Selector("#pay_bills_tab")
-    const addNewPayeeTab = Selector("a").withText("Add New Payee")
-    const form_PayeeName = Selector("#np_new_payee_name")
-    const form_PayeeAddress = Selector("#np_new_payee_address")
-    const form_PayeeAccount = Selector("#np_new_payee_account")
-    const form_PayeeDetails = Selector("#np_new_payee_details")
-    const addButton = Selector("input").withAttribute("value", "Add")
-    const successMessage = Selector("#alert_content").innerText
-
     // Actions
-    await t.click(payBillsTab)
-    await t.click(addNewPayeeTab)
-    await t.typeText(form_PayeeName, "Kim", {paste:true} )
-    await t.typeText(form_PayeeAddress, "2 Street Lane, Leeds, LS1 9JT", {paste:true})
-    await t.typeText(form_PayeeAccount, "1234567", {paste:true})
-    await t.typeText(form_PayeeDetails, "This is a new payee", {paste:true})
-    await t.click(addButton)
-
+    await t.click(payBillsPage.payBillsTab)
+    await t.click(payBillsPage.addNewPayeeTab)
+    payBillsPage.addNewPayee(
+        "Kim",
+        "2 Street Lane, Leeds, LS2 9JT",
+        "1234567",
+        "This is a new payee"
+    )
+    
     // Assertions
-    await t.expect(successMessage).contains("The new payee Kim was successfully created.")
+    await t.expect(payBillsPage.successMessage.innerText).contains("The new payee Kim was successfully created.")
 })
